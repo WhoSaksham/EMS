@@ -1,0 +1,108 @@
+.btn {
+  border: none;
+  outline: none;
+  font-size: var(--p) !important;
+  border-radius: var(--border-radius) !important;
+  font-weight: 500;
+  padding: 0.55rem 1.2rem !important;
+  // text-transform: capitalize;
+  display: flex !important;
+  align-items: center;
+  gap: 0.3rem;
+  justify-content: center !important;
+
+  &.big {
+    font-size: var(--p2);
+    font-weight: 600;
+  }
+
+  &.emr-btn {
+    &__primary {
+      background-color: var(--primary);
+      color: var(--white);
+
+      &:focus-visible {
+        background-color: var(--secondary) !important;
+        color: var(--white) !important;
+      }
+
+      &:hover {
+        background-color: var(--secondary);
+        color: var(--white);
+      }
+    }
+
+    &__secondary {
+      background-color: var(--outlet-bg);
+      color: var(--light-text);
+
+      &:focus-visible {
+        background-color: var(--secondary) !important;
+        color: var(--light-text) !important;
+      }
+
+      &:hover {
+        background-color: var(--secondary);
+        color: white;
+      }
+    }
+
+    &__outline {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.8rem !important;
+
+      &:focus-visible {
+        background-color: var(--primary) !important;
+        color: var(--white) !important;
+      }
+
+      &:hover {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+    }
+
+    &__danger {
+      color: #d92d20;
+      background-color: #efcfcf;
+
+      &:hover {
+        background-color: var(--fail);
+        color: white;
+      }
+    }
+
+    &__text {
+      padding: unset !important;
+      border-radius: unset;
+      color: var(--light-text) !important;
+      font-weight: 700;
+
+      &:focus {
+        border: none;
+        outline: none;
+      }
+
+      &:active {
+        color: var(--black4) !important;
+      }
+    }
+
+    &__light {
+      border: none;
+      background-color: var(--white);
+    }
+  }
+}
+
+.primary-outline {
+  border: 1px solid var(--green);
+  color: var(--green);
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+}

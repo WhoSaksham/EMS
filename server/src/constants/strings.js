@@ -1,0 +1,27 @@
+const MESSAGES = {
+    ROUTE_NOT_FOUND: `Route not found`,
+    MIN_LENGTH_REQUIRED: (name, length, type) => `The ${name || 'Name'} should be of minimum ${length || 5} ${type || 'characters'}`,
+    MAX_LENGTH_ALLOWED: (name, length, type) => `The ${name || 'Name'} can not exceed ${length || 50} ${type || 'characters'}`,
+    INVALID_EMAIL_FORMAT: `Invalid email format`,
+    NAME_REQUIRED: `Please enter your Name`,
+    EMAIL_REQUIRED: `Please enter an Email Address`,
+    ROLE_REQUIRED: `Please provide a valid role`,
+    DEPARTMENT_REQUIRED: `Please provide a valid Department`,
+    EMAIL_ALREADY_TAKEN: `This email is already in use`,
+    PASSWORD_REQUIRED: `Please enter a Password`,
+    EMAIL_PASSWORD_REQUIRED: `Please enter Email and Password`,
+    USER_NOT_FOUND: `No User found`,
+    EMAIL_PASS_INVALID: `Email or Password is invalid`,
+    LOGIN_SUCCESS: `Login successfully`,
+    SIGNUP_SUCCESS: `Registered successfully`,
+    MANDATORY_FIELDS_REQUIRED: `Please fill all mandatory fields`,
+    SOMETHING_WENT_WRONG: `Something went wrong. Please try again later`,
+    VALIDATION_ERROR: `Validation Error`,
+    SUCCESS: `Success`,
+    DEPARTMENT_NOT_FOUND: `No Department found`,
+    DEPARTMENT_EXISTS: `Department already exists`,
+    DEPARTMENT_NAME_REQUIRED: `Department name is required`,
+    UNAUTHORIZED: `You are not authorized to perform this action`,
+}
+
+module.exports = MESSAGES;

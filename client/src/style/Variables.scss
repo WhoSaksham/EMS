@@ -1,0 +1,66 @@
+:root {
+  --primary: #5e81f4;
+  --secondary: #1b51e5;
+  --light-text: #8181a5;
+  --placeholder: #03030349;
+  --list-hover: #eff2fe;
+  --outlet-bg: #f5f5fa;
+  --back-btn-bg: #f0f0f3;
+  --success-bg: #f2fdf7;
+  --success: #7ce7ac;
+  --fail-bg: #fef0f1;
+  --fail: #f86d70;
+  --yellow: #c7b315;
+}
+
+// TT Color
+:root {
+  --black: #1c1d21;
+  --black2: #2c2c2c;
+  --black3: #263238;
+  --black4: #0b264c;
+  --white: #ffffff;
+  --gray: #eaeaf0;
+  --gray1: #f2f2f2;
+  --gray2: #f4f4f9;
+  --gray3: #f7f7f7;
+  --gray4: #9398a1;
+  --gray5: #dbdbdb;
+  --gray6: #747a8d;
+  --gray7: #75879e;
+  --gray8: #656a72;
+
+  --light-blue: #effffc;
+  --green: #14bc9a;
+  --viewed: #e7fdf949;
+
+  --light-green: #edf8f6;
+  --light-yellow: #fffdc7;
+  --border-green: #76d5c297;
+  --red: #fd815e;
+  --blue: #4b8bff;
+  --text-color: #11263c;
+  --highlight-light: #f3963980;
+  --border-light: #ececf2;
+  --highlight-name-bg: #D9DAD9;
+  --highlight-name-text: #68A4A5;
+}
+
+:root {
+  --border-radius: 6px;
+}
+
+// TT Font
+:root {
+  --h1: 2rem; //32px
+  --h2: 1.63rem; // 26px
+  --h3: 1.3rem; // 20.8px
+  --h4: 1.2rem; // 19.2px
+  --h5: 1.1rem; // 17.6px
+  --h6: 1.13rem; // 18px
+  --h7: 0.9rem; // 14.4px
+  --p0: 0.75rem; // 12px
+  --p: 0.88rem; // 14px
+  --p1: 1rem; // 16px
+  --link: 0.9rem; // 14.4px
+}

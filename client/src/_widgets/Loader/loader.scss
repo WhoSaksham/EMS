@@ -1,0 +1,25 @@
+.full_screen_loader {
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+.in_screen_loader {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  padding: 4rem;
+  margin: auto;
+}
