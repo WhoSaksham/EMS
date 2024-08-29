@@ -18,7 +18,7 @@ import ModalConfirmation from "../../_widgets/Modal/ModalConfirmation";
 import { useNavigate } from "react-router-dom";
 import CustomDropdown from "../../_widgets/Dropdown/Dropdown";
 import { DEPARTMENTS } from "../../constants/appConstants";
-import { convertAndStoreDepartmentOptions } from "../../helpers";
+import { convertAndStoreDepartmentOptions, isEmployee } from "../../helpers";
 
 const Employees = () => {
     const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Employees = () => {
     const [buttonLoading, setButtonLoading] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showAssignDepartmentModal, setShowAssignDepartmentModal] = useState(false);
+    const [filters, setFilters] = useState({ location: "", name: "" });
 
     const handleClose = () => {
         setModalShow(false);
@@ -56,13 +57,13 @@ const Employees = () => {
 
     useEffect(() => {
         getEmployeesList();
-    }, [activePage]);
+    }, [activePage, filters.location, filters.name]);
 
-    const getEmployeesList = (locationFilter = '', nameFilter = '') => {
+    const getEmployeesList = () => {
         if (!loading) {
             setLoading(true);
 
-            apiHelper.getEmployees(`?page=${activePage}&location=${locationFilter}&name=${nameFilter}`).then(response => {
+            apiHelper.getEmployees(`?page=${activePage}&location=${filters.location}&name=${filters.name}`).then(response => {
                 if (response?.ok) {
                     setEmployeesList(response?.data);
                 } else {
@@ -148,20 +149,22 @@ const Employees = () => {
     }, []);
 
     const getDepartmentoptions = () => {
-        const localDepartmentOptions = JSON.parse(localStorage.getItem(DEPARTMENTS));
+        if (!isEmployee()) {
+            const localDepartmentOptions = JSON.parse(localStorage.getItem(DEPARTMENTS));
 
-        if (Array.isArray(localDepartmentOptions && localDepartmentOptions?.length)) {
-            setEmployeeData({ ...employeeData, localDepartmentOptions });
-        } else {
-            apiHelper.getDepartments(`?page=${activePage}`).then(response => {
-                if (response?.ok) {
-                    const departmentOptions = convertAndStoreDepartmentOptions(response?.data?.items);
-                    setEmployeeData({ ...employeeData, departmentOptions });
-                } else {
-                    warn(response?.message);
-                }
-                setLoading(false);
-            });
+            if (Array.isArray(localDepartmentOptions && localDepartmentOptions?.length)) {
+                setEmployeeData({ ...employeeData, localDepartmentOptions });
+            } else {
+                apiHelper.getDepartments(`?page=${activePage}`).then(response => {
+                    if (response?.ok) {
+                        const departmentOptions = convertAndStoreDepartmentOptions(response?.data?.items);
+                        setEmployeeData({ ...employeeData, departmentOptions });
+                    } else {
+                        warn(response?.message);
+                    }
+                    setLoading(false);
+                });
+            }
         }
     }
 
@@ -185,13 +188,11 @@ const Employees = () => {
     }
 
     const handleLocationFilterChange = (order) => {
-        const locationFilter = order === 'asc' ?? 'desc';
-        getEmployeesList(locationFilter, '');
+        setFilters({ ...filters, location: order });
     };
 
     const handleNameFilterChange = (order) => {
-        const nameFilter = order === 'asc' ?? 'desc';
-        getEmployeesList('', nameFilter);
+        setFilters({ ...filters, name: order });
     };
 
     return (
@@ -366,20 +367,22 @@ const Employees = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleLocationFilterChange('asc')}>
                                             <Form.Check
                                                 type='radio'
                                                 label='Ascending'
                                                 id='location-asc'
-                                                onChange={() => handleLocationFilterChange('asc')}
+                                                name='location-filter'
+                                                checked={filters.location === 'asc'}
                                             />
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleLocationFilterChange('desc')}>
                                             <Form.Check
                                                 type='radio'
                                                 label='Descending'
                                                 id='location-desc'
-                                                onChange={() => handleLocationFilterChange('desc')}
+                                                name='location-filter'
+                                                checked={filters.location === 'desc'}
                                             />
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -401,20 +404,22 @@ const Employees = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleNameFilterChange('asc')}>
                                             <Form.Check
                                                 type='radio'
-                                                label='Ascending'
                                                 id='name-asc'
-                                                onChange={() => handleNameFilterChange('asc')}
+                                                name='name-filter'
+                                                label='Ascending'
+                                                checked={filters.name === 'asc'}
                                             />
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleNameFilterChange('desc')}>
                                             <Form.Check
                                                 type='radio'
                                                 label='Descending'
                                                 id='name-desc'
-                                                onChange={() => handleNameFilterChange('desc')}
+                                                name='name-filter'
+                                                checked={filters.name === 'desc'}
                                             />
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
@@ -435,7 +440,7 @@ const Employees = () => {
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Location</th>
-                                                <th>Actions</th>
+                                                {!isEmployee() && <th>Actions</th>}
                                             </tr>
                                         </thead>
 
@@ -445,7 +450,7 @@ const Employees = () => {
                                                     <tr key={data._id}>
                                                         <td onClick={() => navigate('/employees/' + data._id)} title={data.name}>{slice(data.name, 20)}</td>
                                                         <td title={data.location}>{slice(data.location, 20)}</td>
-                                                        <td>
+                                                        {!isEmployee() && <td>
                                                             <div className="d-flex align-items-center gap-2 justify-content-center">
                                                                 <Button
                                                                     title='Assign Department'
@@ -472,7 +477,7 @@ const Employees = () => {
                                                                     }}
                                                                 />
                                                             </div>
-                                                        </td>
+                                                        </td>}
                                                     </tr>
                                                 );
                                             })}
@@ -493,7 +498,7 @@ const Employees = () => {
                                     <tr>
                                         <th>Name</th>
                                         <th>Description</th>
-                                        <th>Actions</th>
+                                        {!isEmployee() && <th>Actions</th>}
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

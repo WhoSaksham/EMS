@@ -604,3 +604,8 @@ table {
     margin-bottom: 0 !important;
   }
 }
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: white !important;
+}

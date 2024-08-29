@@ -28,6 +28,7 @@ const EmployeeDetails = () => {
                 if (response?.ok) {
                     setEmployeeData(response?.data);
                 } else {
+                    response?.code === 400 && navigate('/employees');
                     warn(response?.message);
                 }
                 setLoading(false);

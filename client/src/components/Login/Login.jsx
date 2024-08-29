@@ -37,7 +37,6 @@ const Login = () => {
             } else {
                 setLoading(true);
                 const response = await apiHelper.login({ email: loginData.email, password: loginData.password });
-                console.log("here> res", response);
 
                 if (response?.ok) {
                     localStorage.setItem(USER_DATA, JSON.stringify(response.data));

@@ -35,7 +35,7 @@ const isNotEmployee = (req, res, next) => {
 const canAccessEmployeeDetails = async (req, res, next) => {
     const employee = await Auth.findOne({ email: req.user.email });
 
-    if ((employee._id === req.params.id) || req.user.role === ROLES.MANAGER) {
+    if ((employee.id === req.params.id) || req.user.role === ROLES.MANAGER) {
         next();
     } else {
         return errResponse(res, true);
